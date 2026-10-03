@@ -1,0 +1,70 @@
+{
+  "episode_dates": {
+    "admission_date": "24.06.2022",
+    "discharge_date": "06.07.2022"
+  },
+  "diagnosis": {
+    "art_hyper": 0,
+    "atr_fibril": 0,
+    "ckd": "ХБП 3Б",
+    "copd": 0,
+    "diagnosis_icd": "I20.0",
+    "dm": 0,
+    "hf": "не указано",
+    "killip": "не указано",
+    "mi_localisation": "N",
+    "tlt": 0,
+    "type_acs": "NSTEMI"
+  },
+  "admission_exam": {
+    "bmi": "22.9",
+    "bp": "176/103",
+    "bpm": "86",
+    "height": "159",
+    "rr": "20",
+    "smoking": "Бросил курить",
+    "spo2": "95",
+    "weight": "58"
+  },
+  "ecg": {
+    "ecg_avb": 0,
+    "ecg_bpm": "98",
+    "ecg_elevation": 0,
+    "ecg_rythm": "синусовый"
+  },
+  "echo": {
+    "echo_ef": "55",
+    "echo_lvd": "53",
+    "echo_lvd_2": "46",
+    "echo_mr": "Митральная регургитация 2 ст.",
+    "echo_zone": "Гипокинез нижней стенки"
+  },
+  "xray": {
+    "rg_date": "25.06.2022",
+    "rg_pc": "Признаки венозного застоя в лёгких"
+  },
+  "coronary": {
+    "ca_date": "24.06.2022",
+    "ca_fact": "Y",
+    "ca_lad": 0,
+    "rca": 1
+  },
+  "labs": {
+    "card_trop": "отрицательный",
+    "crea": "117",
+    "glu": "5.4",
+    "hb": "126",
+    "ldl": "4.5",
+    "leucocytes": "7.7",
+    "thrombocytes": "177",
+    "tot_chol": "7.0"
+  },
+  "meds": {
+    "2_aag": "Тикагрелор 90 мг 2 раза в день",
+    "ace_ing_sartan": "Рамиприл 5 мг утром",
+    "anticoagulant": "не указано",
+    "aspirin": "АСК 100 мг вечером",
+    "bb": "Метопролол 50 мг 2 раза в день",
+    "statin": "Аторвастатин 80 мг вечером"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "episode_dates": {
+    "admission_date": "23.09.2020",
+    "discharge_date": "03.10.2020"
+  },
+  "diagnosis": {
+    "art_hyper": 1,
+    "atr_fibril": 0,
+    "ckd": "не указано",
+    "copd": 0,
+    "diagnosis_icd": "I21.0",
+    "dm": 0,
+    "hf": "не указано",
+    "killip": 2,
+    "mi_localisation": "A",
+    "tlt": 0,
+    "type_acs": "STEMI"
+  },
+  "admission_exam": {
+    "bmi": "28.4",
+    "bp": "117/76",
+    "bpm": "100",
+    "height": "175",
+    "rr": "22",
+    "smoking": "Бросил курить",
+    "spo2": "94",
+    "weight": "87"
+  },
+  "ecg": {
+    "ecg_avb": 1,
+    "ecg_bpm": "105",
+    "ecg_elevation": 1,
+    "ecg_rythm": "синусовый"
+  },
+  "echo": {
+    "echo_ef": "не указано",
+    "echo_lvd": "не указано",
+    "echo_lvd_2": "не указано",
+    "echo_mr": "не указано",
+    "echo_zone": "не указано"
+  },
+  "xray": {
+    "rg_date": "23.09.2020",
+    "rg_pc": "Признаки венозного застоя в лёгких"
+  },
+  "coronary": {
+    "ca_date": "24.09.2020",
+    "ca_fact": "Y",
+    "ca_lad": 2,
+    "rca": 1
+  },
+  "labs": {
+    "card_trop": "положительный",
+    "crea": "92",
+    "glu": "7.0",
+    "hb": "149",
+    "ldl": "4.5",
+    "leucocytes": "9.8",
+    "thrombocytes": "259",
+    "tot_chol": "6.1"
+  },
+  "meds": {
+    "2_aag": "Клопидогрел 75 мг 1 раз в день",
+    "ace_ing_sartan": "не указано",
+    "anticoagulant": "не указано",
+    "aspirin": "АСК 100 мг вечером",
+    "bb": "не указано",
+    "statin": "Аторвастатин 80 мг вечером"
+  }
+}
