@@ -1,0 +1,735 @@
+{
+  "mode": "rules",
+  "status": "ok",
+  "source_sha256": "3f9c10d159bff7eb1da63e27bbaaf61a7919abad095a3fbf6102b9d7b894858c",
+  "privacy": {
+    "ner_used": true,
+    "masked_spans": [
+      {
+        "start": 26,
+        "end": 32,
+        "kind": "record"
+      },
+      {
+        "start": 70,
+        "end": 103,
+        "kind": "PER"
+      },
+      {
+        "start": 110,
+        "end": 120,
+        "kind": "birth"
+      },
+      {
+        "start": 130,
+        "end": 137,
+        "kind": "age"
+      }
+    ],
+    "residual_count": 0,
+    "coordinate_system": "Unicode character offsets, zero-based, end-exclusive; unchanged after masking"
+  },
+  "sections": [
+    {
+      "kind": "header",
+      "start": 0,
+      "end": 197
+    },
+    {
+      "kind": "history",
+      "start": 197,
+      "end": 226
+    },
+    {
+      "kind": "history",
+      "start": 226,
+      "end": 820
+    },
+    {
+      "kind": "exam",
+      "start": 820,
+      "end": 1221
+    },
+    {
+      "kind": "diagnosis",
+      "start": 1221,
+      "end": 1456
+    },
+    {
+      "kind": "ca",
+      "start": 1456,
+      "end": 1768
+    },
+    {
+      "kind": "labs",
+      "start": 1768,
+      "end": 2035
+    },
+    {
+      "kind": "followup",
+      "start": 2035,
+      "end": 2439
+    },
+    {
+      "kind": "ecg",
+      "start": 2439,
+      "end": 2626
+    },
+    {
+      "kind": "echo",
+      "start": 2626,
+      "end": 2819
+    },
+    {
+      "kind": "treatment",
+      "start": 2819,
+      "end": 3195
+    },
+    {
+      "kind": "followup",
+      "start": 3195,
+      "end": 4110
+    },
+    {
+      "kind": "therapy",
+      "start": 4110,
+      "end": 4534
+    },
+    {
+      "kind": "followup",
+      "start": 4534,
+      "end": 4832
+    }
+  ],
+  "markdown_tables": 0,
+  "warnings": [],
+  "evidence": {
+    "admission_date": {
+      "field": "admission_date",
+      "value": "08.12.2024",
+      "quote": "Дата госпитализации 08.12.2024",
+      "start": 139,
+      "end": 169,
+      "section": "header",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "discharge_date": {
+      "field": "discharge_date",
+      "value": "17.12.2024",
+      "quote": "дата выписки 17.12.2024",
+      "start": 171,
+      "end": 194,
+      "section": "header",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "art_hyper": {
+      "field": "art_hyper",
+      "value": "1",
+      "quote": "Фоновые и сопутствующие заболевания: ГБ II ст., высокий сердечно-сосудистый риск",
+      "start": 1334,
+      "end": 1414,
+      "section": "diagnosis",
+      "context": "diagnosis",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "atr_fibril": {
+      "field": "atr_fibril",
+      "value": "0",
+      "basis": "coding_default",
+      "quote": null,
+      "verified": false
+    },
+    "ckd": {
+      "field": "ckd",
+      "value": "ХБП 2",
+      "quote": "ХБП 2",
+      "start": 1416,
+      "end": 1421,
+      "section": "diagnosis",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "copd": {
+      "field": "copd",
+      "value": "0",
+      "basis": "coding_default",
+      "quote": null,
+      "verified": false
+    },
+    "diagnosis_icd": {
+      "field": "diagnosis_icd",
+      "value": "I21.0",
+      "quote": "МКБ-10 I21.0",
+      "start": 1320,
+      "end": 1332,
+      "section": "diagnosis",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "dm": {
+      "field": "dm",
+      "value": "0",
+      "basis": "coding_default",
+      "quote": null,
+      "verified": false
+    },
+    "hf": {
+      "field": "hf",
+      "value": "не указано",
+      "basis": "not_found",
+      "quote": null,
+      "verified": false
+    },
+    "killip": {
+      "field": "killip",
+      "value": "1",
+      "quote": "Killip I",
+      "start": 1445,
+      "end": 1453,
+      "section": "diagnosis",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "mi_localisation": {
+      "field": "mi_localisation",
+      "value": "A",
+      "quote": "инфаркт миокарда передней",
+      "start": 1266,
+      "end": 1291,
+      "section": "diagnosis",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "tlt": {
+      "field": "tlt",
+      "value": "0",
+      "basis": "coding_default",
+      "quote": null,
+      "verified": false
+    },
+    "type_acs": {
+      "field": "type_acs",
+      "value": "STEMI",
+      "quote": "с элевацией ST",
+      "start": 1300,
+      "end": 1314,
+      "section": "diagnosis",
+      "context": "diagnosis",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "bmi": {
+      "field": "bmi",
+      "value": "23.8",
+      "quote": "ИМТ 23,8",
+      "start": 909,
+      "end": 917,
+      "section": "exam",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "bp": {
+      "field": "bp",
+      "value": "159/97",
+      "quote": "АД 159/97",
+      "start": 1052,
+      "end": 1061,
+      "section": "exam",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "bpm": {
+      "field": "bpm",
+      "value": "87",
+      "quote": "пульс 87",
+      "start": 1033,
+      "end": 1041,
+      "section": "exam",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "height": {
+      "field": "height",
+      "value": "188",
+      "quote": "Рост 188",
+      "start": 878,
+      "end": 886,
+      "section": "exam",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "rr": {
+      "field": "rr",
+      "value": "16",
+      "quote": "ЧДД 16",
+      "start": 983,
+      "end": 989,
+      "section": "exam",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "smoking": {
+      "field": "smoking",
+      "value": "Бросил курить",
+      "quote": "Бросил курить",
+      "start": 678,
+      "end": 691,
+      "section": "history",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "spo2": {
+      "field": "spo2",
+      "value": "95",
+      "quote": "SpO2 95",
+      "start": 1000,
+      "end": 1007,
+      "section": "exam",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "weight": {
+      "field": "weight",
+      "value": "84",
+      "quote": "масса тела 84",
+      "start": 891,
+      "end": 904,
+      "section": "exam",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "ecg_avb": {
+      "field": "ecg_avb",
+      "value": "0",
+      "basis": "coding_default",
+      "quote": null,
+      "verified": false
+    },
+    "ecg_bpm": {
+      "field": "ecg_bpm",
+      "value": "69",
+      "quote": "ЧСС 69",
+      "start": 2494,
+      "end": 2500,
+      "section": "ecg",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "ecg_elevation": {
+      "field": "ecg_elevation",
+      "value": "1",
+      "quote": " Подъём сегмента ST в V1–V4",
+      "start": 2508,
+      "end": 2535,
+      "section": "ecg",
+      "context": "ecg",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "ecg_rythm": {
+      "field": "ecg_rythm",
+      "value": "синусовый",
+      "quote": "синусовый ритм",
+      "start": 2478,
+      "end": 2492,
+      "section": "ecg",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "echo_ef": {
+      "field": "echo_ef",
+      "value": "49",
+      "quote": "ФВ ЛЖ 49",
+      "start": 2673,
+      "end": 2681,
+      "section": "echo",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "echo_lvd": {
+      "field": "echo_lvd",
+      "value": "57",
+      "quote": "КДР ЛЖ 57",
+      "start": 2659,
+      "end": 2668,
+      "section": "echo",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "echo_lvd_2": {
+      "field": "echo_lvd_2",
+      "value": "47",
+      "quote": "ЛП 47",
+      "start": 2649,
+      "end": 2654,
+      "section": "echo",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "echo_mr": {
+      "field": "echo_mr",
+      "value": "Митральная регургитация 2 ст.",
+      "quote": "Митральная регургитация 2 ст.",
+      "start": 2714,
+      "end": 2743,
+      "section": "echo",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "echo_zone": {
+      "field": "echo_zone",
+      "value": "Гипокинез передней стенки ЛЖ",
+      "quote": "Гипокинез передней стенки ЛЖ",
+      "start": 2684,
+      "end": 2712,
+      "section": "echo",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "rg_date": {
+      "field": "rg_date",
+      "value": "не указано",
+      "basis": "not_found",
+      "quote": null,
+      "verified": false
+    },
+    "rg_pc": {
+      "field": "rg_pc",
+      "value": "не указано",
+      "basis": "not_found",
+      "quote": null,
+      "verified": false
+    },
+    "ca_date": {
+      "field": "ca_date",
+      "value": "08.12.2024",
+      "quote": "Коронарография от 08.12.2024",
+      "start": 1471,
+      "end": 1499,
+      "section": "ca",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "ca_fact": {
+      "field": "ca_fact",
+      "value": "Y",
+      "quote": "Коронарография от 08.12.2024",
+      "start": 1471,
+      "end": 1499,
+      "section": "ca",
+      "context": "procedure",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "ca_lad": {
+      "field": "ca_lad",
+      "value": "2",
+      "quote": "ПМЖВ: окклюзия",
+      "start": 1566,
+      "end": 1580,
+      "section": "ca",
+      "context": "procedure",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "rca": {
+      "field": "rca",
+      "value": "2",
+      "quote": "ПКА: стеноз 95%",
+      "start": 1624,
+      "end": 1639,
+      "section": "ca",
+      "context": "procedure",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "card_trop": {
+      "field": "card_trop",
+      "value": "положительный",
+      "quote": "тропониновый тест — положительный",
+      "start": 1907,
+      "end": 1940,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "crea": {
+      "field": "crea",
+      "value": "112",
+      "quote": "креатинин 112",
+      "start": 1855,
+      "end": 1868,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "glu": {
+      "field": "glu",
+      "value": "5.4",
+      "quote": "глюкоза 5,4",
+      "start": 1984,
+      "end": 1995,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "hb": {
+      "field": "hb",
+      "value": "131",
+      "quote": "гемоглобин 131",
+      "start": 1964,
+      "end": 1978,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "ldl": {
+      "field": "ldl",
+      "value": "4.1",
+      "quote": "ХС-ЛПНП 4.1",
+      "start": 1879,
+      "end": 1890,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "leucocytes": {
+      "field": "leucocytes",
+      "value": "8.4",
+      "quote": "лейкоциты 8,4",
+      "start": 1942,
+      "end": 1955,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "thrombocytes": {
+      "field": "thrombocytes",
+      "value": "298",
+      "quote": "тромбоциты 298",
+      "start": 1832,
+      "end": 1846,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "tot_chol": {
+      "field": "tot_chol",
+      "value": "5.7",
+      "quote": "общий холестерин 5,7",
+      "start": 2005,
+      "end": 2025,
+      "section": "labs",
+      "context": "primary",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "2_aag": {
+      "field": "2_aag",
+      "value": "Клопидогрел 75 мг 1 раз в день",
+      "quote": "Клопидогрел 75 мг 1 раз в день",
+      "start": 4214,
+      "end": 4244,
+      "section": "therapy",
+      "context": "discharge_prescription",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "ace_ing_sartan": {
+      "field": "ace_ing_sartan",
+      "value": "Рамиприл 5 мг утром",
+      "quote": "Рамиприл 5 мг утром",
+      "start": 4286,
+      "end": 4305,
+      "section": "therapy",
+      "context": "discharge_prescription",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "anticoagulant": {
+      "field": "anticoagulant",
+      "value": "не указано",
+      "basis": "not_found",
+      "quote": null,
+      "verified": false
+    },
+    "aspirin": {
+      "field": "aspirin",
+      "value": "Ацетилсалициловая кислота 100 мг утром",
+      "quote": "Ацетилсалициловая кислота 100 мг утром",
+      "start": 4170,
+      "end": 4208,
+      "section": "therapy",
+      "context": "discharge_prescription",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "bb": {
+      "field": "bb",
+      "value": "Метопролол 50 мг 2 раза в день",
+      "quote": "Метопролол 50 мг 2 раза в день",
+      "start": 4250,
+      "end": 4280,
+      "section": "therapy",
+      "context": "discharge_prescription",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    },
+    "statin": {
+      "field": "statin",
+      "value": "Аторвастатин 80 мг вечером",
+      "quote": "Аторвастатин 80 мг вечером",
+      "start": 4311,
+      "end": 4337,
+      "section": "therapy",
+      "context": "discharge_prescription",
+      "source": "rules",
+      "verified": true,
+      "basis": "quoted_fact"
+    }
+  },
+  "laboratory_observations": [
+    {
+      "field": "thrombocytes",
+      "value": "298",
+      "quote": "тромбоциты 298",
+      "start": 1832,
+      "end": 1846,
+      "section": "labs",
+      "context": "primary",
+      "selected": true
+    },
+    {
+      "field": "crea",
+      "value": "112",
+      "quote": "креатинин 112",
+      "start": 1855,
+      "end": 1868,
+      "section": "labs",
+      "context": "primary",
+      "selected": true
+    },
+    {
+      "field": "ldl",
+      "value": "4.1",
+      "quote": "ХС-ЛПНП 4.1",
+      "start": 1879,
+      "end": 1890,
+      "section": "labs",
+      "context": "primary",
+      "selected": true
+    },
+    {
+      "field": "leucocytes",
+      "value": "8.4",
+      "quote": "лейкоциты 8,4",
+      "start": 1942,
+      "end": 1955,
+      "section": "labs",
+      "context": "primary",
+      "selected": true
+    },
+    {
+      "field": "hb",
+      "value": "131",
+      "quote": "гемоглобин 131",
+      "start": 1964,
+      "end": 1978,
+      "section": "labs",
+      "context": "primary",
+      "selected": true
+    },
+    {
+      "field": "glu",
+      "value": "5.4",
+      "quote": "глюкоза 5,4",
+      "start": 1984,
+      "end": 1995,
+      "section": "labs",
+      "context": "primary",
+      "selected": true
+    },
+    {
+      "field": "tot_chol",
+      "value": "5.7",
+      "quote": "общий холестерин 5,7",
+      "start": 2005,
+      "end": 2025,
+      "section": "labs",
+      "context": "primary",
+      "selected": true
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "documents": 2,
+  "missing_predictions": 0,
+  "exact_documents": 2,
+  "matched_fields": 100,
+  "total_fields": 100,
+  "field_exact_match": 1.0,
+  "by_field": {
+    "admission_date": {
+      "matched": 2,
+      "total": 2
+    },
+    "discharge_date": {
+      "matched": 2,
+      "total": 2
+    },
+    "art_hyper": {
+      "matched": 2,
+      "total": 2
+    },
+    "atr_fibril": {
+      "matched": 2,
+      "total": 2
+    },
+    "ckd": {
+      "matched": 2,
+      "total": 2
+    },
+    "copd": {
+      "matched": 2,
+      "total": 2
+    },
+    "diagnosis_icd": {
+      "matched": 2,
+      "total": 2
+    },
+    "dm": {
+      "matched": 2,
+      "total": 2
+    },
+    "hf": {
+      "matched": 2,
+      "total": 2
+    },
+    "killip": {
+      "matched": 2,
+      "total": 2
+    },
+    "mi_localisation": {
+      "matched": 2,
+      "total": 2
+    },
+    "tlt": {
+      "matched": 2,
+      "total": 2
+    },
+    "type_acs": {
+      "matched": 2,
+      "total": 2
+    },
+    "bmi": {
+      "matched": 2,
+      "total": 2
+    },
+    "bp": {
+      "matched": 2,
+      "total": 2
+    },
+    "bpm": {
+      "matched": 2,
+      "total": 2
+    },
+    "height": {
+      "matched": 2,
+      "total": 2
+    },
+    "rr": {
+      "matched": 2,
+      "total": 2
+    },
+    "smoking": {
+      "matched": 2,
+      "total": 2
+    },
+    "spo2": {
+      "matched": 2,
+      "total": 2
+    },
+    "weight": {
+      "matched": 2,
+      "total": 2
+    },
+    "ecg_avb": {
+      "matched": 2,
+      "total": 2
+    },
+    "ecg_bpm": {
+      "matched": 2,
+      "total": 2
+    },
+    "ecg_elevation": {
+      "matched": 2,
+      "total": 2
+    },
+    "ecg_rythm": {
+      "matched": 2,
+      "total": 2
+    },
+    "echo_ef": {
+      "matched": 2,
+      "total": 2
+    },
+    "echo_lvd": {
+      "matched": 2,
+      "total": 2
+    },
+    "echo_lvd_2": {
+      "matched": 2,
+      "total": 2
+    },
+    "echo_mr": {
+      "matched": 2,
+      "total": 2
+    },
+    "echo_zone": {
+      "matched": 2,
+      "total": 2
+    },
+    "rg_date": {
+      "matched": 2,
+      "total": 2
+    },
+    "rg_pc": {
+      "matched": 2,
+      "total": 2
+    },
+    "ca_date": {
+      "matched": 2,
+      "total": 2
+    },
+    "ca_fact": {
+      "matched": 2,
+      "total": 2
+    },
+    "ca_lad": {
+      "matched": 2,
+      "total": 2
+    },
+    "rca": {
+      "matched": 2,
+      "total": 2
+    },
+    "card_trop": {
+      "matched": 2,
+      "total": 2
+    },
+    "crea": {
+      "matched": 2,
+      "total": 2
+    },
+    "glu": {
+      "matched": 2,
+      "total": 2
+    },
+    "hb": {
+      "matched": 2,
+      "total": 2
+    },
+    "ldl": {
+      "matched": 2,
+      "total": 2
+    },
+    "leucocytes": {
+      "matched": 2,
+      "total": 2
+    },
+    "thrombocytes": {
+      "matched": 2,
+      "total": 2
+    },
+    "tot_chol": {
+      "matched": 2,
+      "total": 2
+    },
+    "2_aag": {
+      "matched": 2,
+      "total": 2
+    },
+    "ace_ing_sartan": {
+      "matched": 2,
+      "total": 2
+    },
+    "anticoagulant": {
+      "matched": 2,
+      "total": 2
+    },
+    "aspirin": {
+      "matched": 2,
+      "total": 2
+    },
+    "bb": {
+      "matched": 2,
+      "total": 2
+    },
+    "statin": {
+      "matched": 2,
+      "total": 2
+    }
+  },
+  "by_group": {
+    "даты эпизода": {
+      "matched": 4,
+      "total": 4
+    },
+    "диагноз": {
+      "matched": 22,
+      "total": 22
+    },
+    "осмотр при поступлении": {
+      "matched": 16,
+      "total": 16
+    },
+    "ЭКГ": {
+      "matched": 8,
+      "total": 8
+    },
+    "ЭХО-КГ": {
+      "matched": 10,
+      "total": 10
+    },
+    "рентген грудной полости": {
+      "matched": 4,
+      "total": 4
+    },
+    "коронарография": {
+      "matched": 8,
+      "total": 8
+    },
+    "Лабораторные данные": {
+      "matched": 16,
+      "total": 16
+    },
+    "медикаментозная терапия": {
+      "matched": 12,
+      "total": 12
+    }
+  },
+  "limitation": "Metric applies only to supplied annotations. Reference quality must be independently reviewed."
+}

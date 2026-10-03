@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8501:8501"
+    env_file:
+      - path: config/.env
+        required: false
+    volumes:
+      - ./result:/app/result
+      - ./reports:/app/reports
