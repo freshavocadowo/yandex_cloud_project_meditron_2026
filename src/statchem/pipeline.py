@@ -8,6 +8,7 @@ import re
 import time
 
 from .contract import FIELDS, MISSING, assemble, validate_value
+from .loader import discover, load_path
 from .parser import parse
 from .privacy import anonymize, residual_identifiers
 from .rules import Fact, defaults, extract, negated
@@ -164,9 +165,9 @@ def batch(input_dir: Path, output_dir: Path, reports_dir: Path, settings: Settin
         extractor = YandexExtractor(settings)
     else:
         extractor = None
-    paths = sorted(input_dir.glob("*.md"))
+    paths = discover(input_dir)
     if not paths:
-        raise ValueError("no_markdown_documents")
+        raise ValueError("no_documents")
     if limit is not None:
         paths = paths[:limit]
     # Preflight prevents writing over the inputs or colliding with report files.
@@ -181,9 +182,9 @@ def batch(input_dir: Path, output_dir: Path, reports_dir: Path, settings: Settin
         target = output_dir / (stem + ".json")
         evidence_target = reports_dir / "evidence" / (stem + ".json")
         try:
-            text = path.read_bytes().decode("utf-8-sig")
-            digest = hashlib.sha256(text.encode()).hexdigest()
-            result = process(text, settings, mode, extractor)
+            source = load_path(path)
+            digest = source.sha256
+            result = process(source.text, settings, mode, extractor)
             if digest in seen:
                 result.report["warnings"].append("duplicate_document")
                 result.report["status"] = "review"
@@ -198,7 +199,7 @@ def batch(input_dir: Path, output_dir: Path, reports_dir: Path, settings: Settin
             # An old successful export must not masquerade as the new failed run.
             for old in (target, evidence_target, reports_dir / "anonymized" / (stem + ".md")):
                 old.unlink(missing_ok=True)
-            known = {"empty_document", "residual_identifiers", "invalid_field_value", "invalid_evidence_offset", "incomplete_model_response", "empty_model_response"}
+            known = {"empty_document", "unknown_encoding", "binary_content", "document_too_large", "residual_identifiers", "invalid_field_value", "invalid_evidence_offset", "incomplete_model_response", "empty_model_response"}
             code = str(exc) if str(exc) in known else "processing_failed"
             items.append({"document": stem, "status": "error", "error_type": type(exc).__name__, "error_code": code, "seconds": round(time.perf_counter()-start, 4)})
     summary = {"created_at": datetime.now(timezone.utc).isoformat(), "mode": mode, "model": settings.model if mode == "yandex" else None,

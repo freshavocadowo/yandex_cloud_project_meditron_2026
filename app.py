@@ -6,6 +6,7 @@ import zipfile
 
 import streamlit as st
 
+from statchem.loader import EXTENSIONS, discover, load_bytes, load_path
 from statchem.pipeline import process
 from statchem.settings import Settings
 
@@ -15,12 +16,13 @@ st.caption("Синтетические документы медицинског
 st.info("Прототип для исследовательской демонстрации. Используйте только синтетические эпикризы.")
 mode = st.sidebar.selectbox("Способ извлечения", ["rules", "yandex"], format_func=lambda x: "Локальные правила" if x == "rules" else "Правила + YandexGPT")
 use_ner = st.sidebar.checkbox("Локальное распознавание имён (Natasha)", value=True, disabled=mode == "yandex")
-files = sorted(Path("participant-kit-realistic-v2-100/documents").glob("*.md"))
+corpus = Path("participant-kit-realistic-v2-100/documents")
+files = discover(corpus) if corpus.is_dir() else []
 selected = st.sidebar.selectbox("Документ из корпуса", files, format_func=lambda p: p.stem) if files else None
-upload = st.sidebar.file_uploader("Или загрузите синтетический .md", type=["md"])
+upload = st.sidebar.file_uploader("Или загрузите синтетический .md/.txt", type=[e.lstrip(".") for e in EXTENSIONS])
 if st.sidebar.button("Извлечь признаки", type="primary"):
     try:
-        text = upload.getvalue().decode("utf-8-sig") if upload else selected.read_text(encoding="utf-8-sig")
+        text = (load_bytes(upload.getvalue(), upload.name) if upload else load_path(selected)).text
         settings = Settings()
         settings.use_ner = True if mode == "yandex" else use_ner
         with st.spinner("Обезличивание, извлечение и проверка цитат…"):

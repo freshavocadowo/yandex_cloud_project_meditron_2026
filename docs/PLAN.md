@@ -77,7 +77,8 @@ web/  eval/{gold,score.py}  data/  result/  docker-compose.yml
 - [ ] Все: созвон 1 ч, прочитать 10–15 эпикризов, утвердить `schema.py` и правила нормализации
 - [ ] P1: скелет репо, docker-compose, GPU-ВМ + vLLM, замер скорости
 - [ ] P2: промпт для смысловых полей, guided_json, тест на 10 документах
-- [ ] P3: loader, anonymizer, segmenter, regex: даты, осмотр, лабы, ЭКГ, ЭхоКГ, КАГ
+- [x] P3: loader — `src/statchem/loader.py`: .md/.txt, кодировки utf-8/utf-16/cp1251/koi8-r/cp866, нормализация (BOM, `\n`, NFC), sha256, коды ошибок; подключён в batch, UI, audit; тесты `tests/test_loader.py`
+- [ ] P3: anonymizer, segmenter, regex: даты, осмотр, лабы, ЭКГ, ЭхоКГ, КАГ (частично есть в `src/statchem`)
 - [ ] P4: score.py, словарь вариантов заголовков, разметка 30 документов
 - [ ] P5: схема БД, заглушки API, страница загрузки
 - [ ] **Веха: 100 валидных JSON в `result/` (rules-only), baseline-метрика**

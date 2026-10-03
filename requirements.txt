@@ -1,0 +1,13 @@
+# Прямые зависимости (как в pyproject.toml). Полный набор с транзитивными версиями — requirements.lock (его ставит Dockerfile).
+# Python 3.12: pip install -r requirements.txt && pip install --no-deps -e .
+pydantic==2.12.3
+pydantic-settings==2.11.0
+jsonschema==4.25.1
+typer==0.20.0
+openai==2.3.0
+streamlit==1.50.0
+natasha==1.6.0
+markdown-it-py==4.0.0
+razdel==0.5.0
+charset-normalizer==3.5.2
+pytest==8.4.2
