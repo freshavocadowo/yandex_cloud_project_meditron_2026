@@ -21,7 +21,6 @@ WEB = Path(__file__).resolve().parents[2] / "web"
 app = FastAPI(title="Эпикриз → JSON", version=PIPELINE_VERSION)
 app.state.store = None
 app.state.llm = from_env()
-app.mount("/img", StaticFiles(directory=WEB / "img"), name="img")
 
 
 def store() -> Store:
@@ -76,3 +75,7 @@ def download(doc_id: str) -> JSONResponse:
 @app.get("/api/documents")
 def documents(limit: int = 100) -> list[dict]:
     return store().list(limit)
+
+
+# web/ целиком (img/, api.js, inspect.html): монтируется последним, чтобы не перекрывать маршруты выше
+app.mount("/", StaticFiles(directory=WEB), name="web")

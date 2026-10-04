@@ -38,3 +38,17 @@ def test_rejects_bad_files():
         "unsupported_extension"
     assert c.post("/api/extract", files={"file": ("a.md", b"  ", "text/markdown")}).status_code == 400
     assert c.get("/api/results/missing").status_code == 404
+
+
+def test_browser_entry_matches_api():
+    import json
+
+    from app import browser
+
+    api = client().post("/api/extract", files={"file": ("пациент-1.md", DOC.encode("cp1251"), "text/markdown")}).json()
+    local = json.loads(browser.extract(DOC.encode("cp1251"), "пациент-1.md"))
+    same = ("filename", "doc_id", "sha256", "anon_text", "warnings", "pipeline_version", "json", "fields")
+    assert {k: local[k] for k in same} == {k: api[k] for k in same}
+    assert json.loads(browser.extract(b"%PDF", "a.pdf")) == {"detail": "unsupported_extension"}
+    assert json.loads(browser.schema())["mode"] == "browser"
+    assert client().get("/api.js").status_code == 200

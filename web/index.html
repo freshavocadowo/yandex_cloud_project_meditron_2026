@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>jason стетхэм</title>
-<link rel="preload" as="image" href="/img/open2.webp">
+<link rel="preload" as="image" href="img/open2.webp">
 <style>
   :root { --bg: #fff; --fg: #000; --w: min(62vmin, 560px); }
   @media (prefers-color-scheme: dark) { :root { --bg: #000; --fg: #fff; } }
@@ -79,7 +79,7 @@
 <main>
   <div class="stage" id="stage">
     <button id="head" type="button" aria-label="покормить эпикризом: выбрать файл" hidden>
-      <img id="face" src="/img/open2.webp" alt="голова джейсона стетхэма" draggable="false">
+      <img id="face" src="img/open2.webp" alt="голова джейсона стетхэма" draggable="false">
     </button>
     <div class="cloud" id="cloud" aria-live="polite">
       <p id="say"></p>
@@ -90,6 +90,7 @@
 </main>
 <input type="file" id="file" class="sr" accept=".md,.txt,.docx" tabindex="-1">
 
+<script src="api.js"></script>
 <script>
 const FRAMES = { closed: "closed", closed1: "closed1", open: "open", open2: "open2", open3: "open3" };
 const CHEW = ["closed1", "open2", "open3", "closed"];
@@ -103,11 +104,12 @@ const ERRORS = {
   bad_docx: "этот .docx не жуётся",
   unknown_encoding: "не разобрал, что тут написано",
   binary_content: "это не эпикриз, это что-то несъедобное",
+  pyodide_unavailable: "желудок не загрузился. интернет есть?",
 };
 
 const $ = (id) => document.getElementById(id);
 const face = $("face"), head = $("head"), cloud = $("cloud"), say = $("say"), take = $("take"), input = $("file");
-const src = (name) => `/img/${FRAMES[name]}.webp`;
+const src = (name) => `img/${FRAMES[name]}.webp`;
 
 let state = "intro";  // intro | idle | hover | chewing | done
 let result = null, chewTimer = null, dragDepth = 0;
@@ -151,14 +153,9 @@ async function feed(file) {
   const started = performance.now();
   let error = null;
   try {
-    const body = new FormData();
-    body.append("file", file, file.name);
-    const res = await fetch("/api/extract", { method: "POST", body });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok) result = data;
-    else error = ERRORS[data.detail] || `подавился (${res.status})`;
-  } catch {
-    error = "бэкенд молчит. повар ушёл?";
+    result = await api.extract(file);
+  } catch (e) {
+    error = ERRORS[e.detail] || (e.status ? `подавился (${e.status})` : "бэкенд молчит. повар ушёл?");
   }
   const left = MIN_CHEW_MS - (performance.now() - started);
   if (left > 0) await new Promise((r) => setTimeout(r, left));
@@ -172,14 +169,7 @@ async function feed(file) {
 
 function download() {
   if (!result) return;
-  const blob = new Blob([JSON.stringify(result.json, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = `${result.doc_id || "epicrisis"}.json`;
-  document.body.append(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  api.download(result);
   idle("ещё!!! " + PROMPT);
 }
 
@@ -226,6 +216,8 @@ const preload = Promise.all(Object.keys(FRAMES).map((n) => {
   return img.decode().catch(() => {});
 }));
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+api.warmUp();  // на GitHub Pages Python грузится, пока идёт вступление
 
 (async () => {
   await wait(3000);

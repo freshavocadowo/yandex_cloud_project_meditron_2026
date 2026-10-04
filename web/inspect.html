@@ -62,9 +62,9 @@
 </header>
 <main>
   <label class="drop" id="drop">
-    <strong>Перетащите .md или .txt сюда или нажмите, чтобы выбрать</strong>
-    <span>Только синтетические документы. Текст обезличивается до извлечения; в базе хранится обезличенная версия.</span>
-    <input type="file" id="file" accept=".md,.txt" hidden>
+    <strong>Перетащите .md, .txt или .docx сюда или нажмите, чтобы выбрать</strong>
+    <span>Только синтетические документы. Текст обезличивается до извлечения; хранится только обезличенная версия. <span id="where"></span></span>
+    <input type="file" id="file" accept=".md,.txt,.docx" hidden>
   </label>
   <div class="error" id="error"></div>
 
@@ -87,25 +87,17 @@
   </section>
 </main>
 <footer>Исследовательский прототип на синтетических данных. Не предназначен для постановки диагноза и принятия клинических решений.</footer>
+<script src="api.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 let schema = null, current = null;
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 
-async function api(path, options) {
-  const response = await fetch(path, options);
-  const body = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(body.detail || response.statusText);
-  return body;
-}
-
 async function upload(file) {
   $("error").textContent = "";
-  const form = new FormData();
-  form.append("file", file);
   try {
-    show(await api("/api/extract", {method: "POST", body: form}));
+    show(await api.extract(file));
     loadHistory();
   } catch (e) {
     $("error").textContent = "Не удалось обработать файл: " + e.message;
@@ -162,14 +154,14 @@ function show(doc) {
 }
 
 async function loadHistory() {
-  const docs = await api("/api/documents?limit=20");
+  const docs = await api.documents(20);
   $("history").innerHTML = docs.length ? docs.map((d) =>
     `<div><a data-id="${d.id}">${esc(d.filename)}</a> · ${esc(d.created_at)}</div>`).join("") : "—";
   $("history").querySelectorAll("a").forEach((a) =>
-    a.addEventListener("click", async () => show(await api("/api/results/" + a.dataset.id))));
+    a.addEventListener("click", async () => show(await api.result(a.dataset.id))));
 }
 
-$("download").addEventListener("click", () => { location.href = `/api/results/${current.id}/download`; });
+$("download").addEventListener("click", () => api.download(current));
 $("copy").addEventListener("click", () => navigator.clipboard.writeText(JSON.stringify(current.json, null, 2)));
 $("file").addEventListener("change", (e) => e.target.files[0] && upload(e.target.files[0]));
 const drop = $("drop");
@@ -178,11 +170,15 @@ const drop = $("drop");
 drop.addEventListener("drop", (e) => { e.preventDefault(); e.dataTransfer.files[0] && upload(e.dataTransfer.files[0]); });
 
 (async () => {
-  schema = await api("/api/schema");
+  api.warmUp();
+  schema = await api.schema();
   $("mode").textContent = `Режим: ${schema.mode}.`;
+  $("where").textContent = schema.mode === "browser"
+    ? "Обработка идёт прямо в браузере: файл никуда не отправляется, история — в этом браузере."
+    : "История хранится в базе данных сервера.";
   loadHistory();
   if (location.hash.length > 1) {
-    const doc = await api("/api/results/" + location.hash.slice(1)).catch(() => null);
+    const doc = await api.result(location.hash.slice(1)).catch(() => null);
     if (doc) show(doc);
   }
 })();
