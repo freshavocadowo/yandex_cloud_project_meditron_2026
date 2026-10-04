@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>jason стетхэм</title>
+<link rel="preload" as="image" href="/img/open2.webp">
+<style>
+  :root { --bg: #fff; --fg: #000; --w: min(62vmin, 560px); }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000; --fg: #fff; } }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; overflow: hidden; background: var(--bg); color: var(--fg);
+    font: 18pt/1.35 ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    text-transform: lowercase;
+  }
+  button { font: inherit; color: inherit; text-transform: inherit; }
+
+  #intro {
+    position: fixed; inset: 0; display: grid; place-items: center; margin: 0;
+    font-size: inherit; font-weight: normal; transition: opacity .5s ease;
+  }
+  #intro.gone { opacity: 0; }
+
+  main { position: fixed; inset: 0; display: grid; place-items: center; padding: 16px; }
+  .stage { position: relative; width: var(--w); aspect-ratio: 1; }
+
+  /* голова выплывает из фона */
+  #head {
+    display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer;
+    opacity: 0; transform: scale(.55); filter: blur(14px);
+    transition: opacity 1.2s ease, transform 1.4s cubic-bezier(.2, .8, .2, 1), filter 1.2s ease;
+  }
+  body.shown #head { opacity: 1; transform: none; filter: none; }
+  body.busy #head { cursor: progress; }
+  #head:focus-visible { outline: 2px dashed var(--fg); outline-offset: 8px; }
+  #head img { display: block; width: 100%; height: 100%; pointer-events: none; user-select: none; }
+
+  /* облако изо рта: пузырьки от уголка рта (≈60%, 74%) к облаку */
+  .cloud {
+    position: absolute; left: 86%; bottom: 29%; width: max-content; max-width: min(34vw, 15em);
+    padding: .8em 1.1em; border: 2px solid var(--fg); border-radius: 50% / 40%; background: var(--bg);
+    text-align: center; opacity: 0; transform: scale(.6); transform-origin: 0 100%;
+    transition: opacity .25s ease, transform .35s cubic-bezier(.3, 1.6, .5, 1); pointer-events: none;
+  }
+  .cloud.on { opacity: 1; transform: none; pointer-events: auto; }
+  .puff {
+    position: absolute; border: 2px solid var(--fg); border-radius: 50%; background: var(--bg);
+    opacity: 0; transition: opacity .2s ease;
+  }
+  .cloud.on ~ .puff { opacity: 1; }
+  .puff.p1 { left: 62%; top: 73.5%; width: 1.6%; height: 1.6%; transition-delay: 0s; }
+  .puff.p2 { left: 70%; top: 72%; width: 2.6%; height: 2.6%; transition-delay: .05s; }
+  .puff.p3 { left: 79%; top: 69.5%; width: 3.6%; height: 3.6%; transition-delay: .1s; }
+  .cloud p { margin: 0; }
+  #take {
+    padding: .3em .8em; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); cursor: pointer;
+  }
+  #take:hover, #take:focus-visible { background: var(--fg); color: var(--bg); outline: none; }
+
+  /* узкий экран: облако под головой, без пузырьков */
+  @media (max-width: 760px), (max-aspect-ratio: 1/1) {
+    :root { --w: min(78vw, 52vh); }
+    .stage { margin-bottom: 8em; }
+    .cloud { left: 50%; bottom: auto; top: calc(100% + 16px); max-width: calc(100vw - 32px); transform: translateX(-50%) scale(.6); transform-origin: 50% 0; }
+    .cloud.on { transform: translateX(-50%); }
+    .puff { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #head, .cloud, #intro { transition-duration: .01s; }
+  }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<h1 id="intro">jason стетхэм</h1>
+<main>
+  <div class="stage" id="stage">
+    <button id="head" type="button" aria-label="покормить эпикризом: выбрать файл" hidden>
+      <img id="face" src="/img/open2.webp" alt="голова джейсона стетхэма" draggable="false">
+    </button>
+    <div class="cloud" id="cloud" aria-live="polite">
+      <p id="say"></p>
+      <button id="take" type="button" hidden>держи, json</button>
+    </div>
+    <span class="puff p1"></span><span class="puff p2"></span><span class="puff p3"></span>
+  </div>
+</main>
+<input type="file" id="file" class="sr" accept=".md,.txt,.docx" tabindex="-1">
+
+<script>
+const FRAMES = { closed: "closed", closed1: "closed1", open: "open", open2: "open2", open3: "open3" };
+const CHEW = ["closed1", "open2", "open3", "closed"];
+const CHEW_MS = 170, MIN_CHEW_MS = 1600;
+const PROMPT = "покорми меня .md .txt или .docx эпикризами!!!";
+const EXT = /\.(md|txt|docx)$/i;
+const ERRORS = {
+  unsupported_extension: "фу. только .md .txt или .docx",
+  empty_document: "тут пусто. я голодный",
+  document_too_large: "слишком жирно, не влезет",
+  bad_docx: "этот .docx не жуётся",
+  unknown_encoding: "не разобрал, что тут написано",
+  binary_content: "это не эпикриз, это что-то несъедобное",
+};
+
+const $ = (id) => document.getElementById(id);
+const face = $("face"), head = $("head"), cloud = $("cloud"), say = $("say"), take = $("take"), input = $("file");
+const src = (name) => `/img/${FRAMES[name]}.webp`;
+
+let state = "intro";  // intro | idle | hover | chewing | done
+let result = null, chewTimer = null, dragDepth = 0;
+
+function show(name) { face.src = src(name); }
+
+function speak(text, withButton = false) {
+  say.textContent = text;
+  say.hidden = !text;
+  take.hidden = !withButton;
+  cloud.classList.toggle("on", Boolean(text) || withButton);
+}
+
+function idle(message = PROMPT) {
+  state = "idle";
+  document.body.classList.remove("busy");
+  show("open2");
+  speak(message);
+}
+
+function startChewing() {
+  state = "chewing";
+  document.body.classList.add("busy");
+  speak("");
+  let i = 0;
+  show(CHEW[i]);
+  chewTimer = setInterval(() => show(CHEW[++i % CHEW.length]), CHEW_MS);
+}
+
+function stopChewing() {
+  clearInterval(chewTimer);
+  chewTimer = null;
+  document.body.classList.remove("busy");
+}
+
+async function feed(file) {
+  if (!file || state === "chewing" || state === "intro") return;
+  if (!EXT.test(file.name)) { idle(ERRORS.unsupported_extension); return; }
+  result = null;
+  startChewing();
+  const started = performance.now();
+  let error = null;
+  try {
+    const body = new FormData();
+    body.append("file", file, file.name);
+    const res = await fetch("/api/extract", { method: "POST", body });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) result = data;
+    else error = ERRORS[data.detail] || `подавился (${res.status})`;
+  } catch {
+    error = "бэкенд молчит. повар ушёл?";
+  }
+  const left = MIN_CHEW_MS - (performance.now() - started);
+  if (left > 0) await new Promise((r) => setTimeout(r, left));
+  stopChewing();
+  if (error) { idle(error); return; }
+  state = "done";
+  show("open2");
+  speak("", true);
+  take.focus({ preventScroll: true });
+}
+
+function download() {
+  if (!result) return;
+  const blob = new Blob([JSON.stringify(result.json, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${result.doc_id || "epicrisis"}.json`;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  idle("ещё!!! " + PROMPT);
+}
+
+// перетаскивание: голова открывает рот, когда файл над ней
+const stage = $("stage");
+const canEat = () => state === "idle" || state === "done" || state === "hover";
+let before = null;  // что было до наведения: вернуть, если файл унесли
+
+addEventListener("dragover", (e) => e.preventDefault());
+addEventListener("drop", (e) => e.preventDefault());
+
+stage.addEventListener("dragenter", (e) => {
+  if (!canEat() || !e.dataTransfer.types.includes("Files")) return;
+  if (dragDepth++ === 0) {
+    before = { state, text: say.textContent, button: !take.hidden };
+    state = "hover";
+    show("open");
+    speak("");
+  }
+});
+stage.addEventListener("dragleave", () => {
+  if (state !== "hover" || --dragDepth > 0) return;
+  dragDepth = 0;
+  state = before.state;
+  show("open2");
+  speak(before.text, before.button);
+});
+stage.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dragDepth = 0;
+  if (state !== "hover") return;
+  state = before.state;
+  feed(e.dataTransfer.files[0]);
+});
+
+head.addEventListener("click", () => { if (canEat()) input.click(); });
+input.addEventListener("change", () => { feed(input.files[0]); input.value = ""; });
+take.addEventListener("click", download);
+
+// вступление: надпись 3 с, затем голова из фона, затем облако
+const preload = Promise.all(Object.keys(FRAMES).map((n) => {
+  const img = new Image();
+  img.src = src(n);
+  return img.decode().catch(() => {});
+}));
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+(async () => {
+  await wait(3000);
+  $("intro").classList.add("gone");
+  await Promise.all([preload, wait(500)]);
+  $("intro").remove();
+  head.hidden = false;
+  head.getBoundingClientRect();  // старт перехода с начального состояния
+  document.body.classList.add("shown");
+  await wait(1300);
+  idle();
+})();
+</script>
+</body>
+</html>

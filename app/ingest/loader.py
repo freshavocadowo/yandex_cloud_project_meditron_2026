@@ -1,4 +1,4 @@
-"""Чтение эпикризов .md/.txt в единый нормализованный текст.
+"""Чтение эпикризов .md/.txt/.docx в единый нормализованный текст.
 
 Все последующие смещения (разделы, маски, цитаты-подтверждения) считаются от
 строки, которую возвращает этот модуль, поэтому нормализация минимальна:
@@ -7,12 +7,15 @@
 from dataclasses import dataclass
 import codecs
 import hashlib
+import io
 from pathlib import Path
 import unicodedata
+from xml.etree import ElementTree
+import zipfile
 
 from charset_normalizer import from_bytes
 
-EXTENSIONS = (".md", ".txt")
+EXTENSIONS = (".md", ".txt", ".docx")
 MAX_BYTES = 2_000_000  # эпикриз ~5 КБ; файл больше — не документ
 BOMS = ((codecs.BOM_UTF8, "utf-8-sig"), (codecs.BOM_UTF16_LE, "utf-16"), (codecs.BOM_UTF16_BE, "utf-16"))
 # Кириллические кодировки старых медицинских выгрузок
@@ -46,6 +49,44 @@ def decode(data: bytes) -> tuple[str, str]:
     return str(match), match.encoding
 
 
+W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+
+
+def docx_text(data: bytes) -> str:
+    """Текст абзацев word/document.xml; таблицы — построчно, ячейки через " | "."""
+    try:
+        with zipfile.ZipFile(io.BytesIO(data)) as z:
+            info = z.getinfo("word/document.xml")
+            if info.file_size > 20 * MAX_BYTES:
+                raise LoadError("document_too_large")
+            root = ElementTree.fromstring(z.read(info))
+    except (zipfile.BadZipFile, KeyError, ElementTree.ParseError):
+        raise LoadError("bad_docx")
+
+    def para(p) -> str:
+        parts = []
+        for el in p.iter():
+            if el.tag == W + "t":
+                parts.append(el.text or "")
+            elif el.tag == W + "tab":
+                parts.append("\t")
+            elif el.tag in (W + "br", W + "cr"):
+                parts.append("\n")
+        return "".join(parts)
+
+    lines = []
+    body = root.find(W + "body")
+    for block in (body if body is not None else []):
+        if block.tag == W + "p":
+            lines.append(para(block))
+        elif block.tag == W + "tbl":
+            for row in block.iter(W + "tr"):
+                lines.append(" | ".join("\n".join(para(p) for p in cell.iter(W + "p")) for cell in row.iter(W + "tc")))
+        else:  # w:sdt и прочие обёртки
+            lines.extend(para(p) for p in block.iter(W + "p"))
+    return "\n".join(lines)
+
+
 def normalize(text: str) -> str:
     return unicodedata.normalize("NFC", text.replace("\r\n", "\n").replace("\r", "\n"))
 
@@ -56,7 +97,10 @@ def load_bytes(data: bytes, name: str) -> Source:
         raise LoadError("unsupported_extension")
     if len(data) > MAX_BYTES:
         raise LoadError("document_too_large")
-    text, encoding = decode(data)
+    if path.suffix.lower() == ".docx":
+        text, encoding = docx_text(data), "docx"
+    else:
+        text, encoding = decode(data)
     if "\x00" in text:
         raise LoadError("binary_content")
     text = normalize(text)

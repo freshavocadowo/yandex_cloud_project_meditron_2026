@@ -1,0 +1,358 @@
+{
+  "doc_id": "train-0067",
+  "sha256": "7081d2940313df4b172e8b87cf43a0093c9714fa12a8593ca0a1787ccd5b215f",
+  "pipeline_version": "0.2.0",
+  "fields": {
+    "admission_date": {
+      "value": "25.07.2021",
+      "evidence": "Период лечения: с 25.07.2021 по 05.08.2021",
+      "start": 122,
+      "end": 164,
+      "source": "rule"
+    },
+    "discharge_date": {
+      "value": "05.08.2021",
+      "evidence": "Период лечения: с 25.07.2021 по 05.08.2021",
+      "start": 122,
+      "end": 164,
+      "source": "rule"
+    },
+    "art_hyper": {
+      "value": "1",
+      "evidence": "ГБ",
+      "start": 292,
+      "end": 294,
+      "source": "rule"
+    },
+    "atr_fibril": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ckd": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "copd": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "diagnosis_icd": {
+      "value": "I20.0",
+      "evidence": "I20.0",
+      "start": 248,
+      "end": 253,
+      "source": "rule"
+    },
+    "dm": {
+      "value": "1",
+      "evidence": "Сахарный диабет",
+      "start": 337,
+      "end": 352,
+      "source": "rule"
+    },
+    "hf": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "killip": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "mi_localisation": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "tlt": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "type_acs": {
+      "value": "NA",
+      "evidence": "Нестабильная стенокардия",
+      "start": 211,
+      "end": 235,
+      "source": "rule"
+    },
+    "bmi": {
+      "value": "22.1",
+      "evidence": "ИМТ 22.1",
+      "start": 474,
+      "end": 482,
+      "source": "rule"
+    },
+    "bp": {
+      "value": "137/73",
+      "evidence": "АД 137/73",
+      "start": 627,
+      "end": 636,
+      "source": "rule"
+    },
+    "bpm": {
+      "value": "84",
+      "evidence": "пульс 84",
+      "start": 608,
+      "end": 616,
+      "source": "rule"
+    },
+    "height": {
+      "value": "170",
+      "evidence": "Рост 170 см",
+      "start": 443,
+      "end": 454,
+      "source": "rule"
+    },
+    "rr": {
+      "value": "18",
+      "evidence": "ЧДД 18",
+      "start": 558,
+      "end": 564,
+      "source": "rule"
+    },
+    "smoking": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "spo2": {
+      "value": "99",
+      "evidence": "SpO2 99%",
+      "start": 575,
+      "end": 583,
+      "source": "rule"
+    },
+    "weight": {
+      "value": "64",
+      "evidence": "масса тела 64 кг",
+      "start": 456,
+      "end": 472,
+      "source": "rule"
+    },
+    "ecg_avb": {
+      "value": "1",
+      "evidence": "АВ-блокада",
+      "start": 2193,
+      "end": 2203,
+      "source": "rule"
+    },
+    "ecg_bpm": {
+      "value": "91",
+      "evidence": "ЧСС 91",
+      "start": 2097,
+      "end": 2103,
+      "source": "rule"
+    },
+    "ecg_elevation": {
+      "value": "0",
+      "evidence": "Подъёма ST не зарегистрировано",
+      "start": 2112,
+      "end": 2142,
+      "source": "rule"
+    },
+    "ecg_rythm": {
+      "value": "синусовый",
+      "evidence": "синусовый",
+      "start": 2081,
+      "end": 2090,
+      "source": "rule"
+    },
+    "echo_ef": {
+      "value": "55",
+      "evidence": "ФВ ЛЖ 55%",
+      "start": 1472,
+      "end": 1481,
+      "source": "rule"
+    },
+    "echo_lvd": {
+      "value": "49",
+      "evidence": "КДР ЛЖ 49",
+      "start": 1458,
+      "end": 1467,
+      "source": "rule"
+    },
+    "echo_lvd_2": {
+      "value": "48",
+      "evidence": "ЛП 48",
+      "start": 1448,
+      "end": 1453,
+      "source": "rule"
+    },
+    "echo_mr": {
+      "value": "Митральная регургитация 1 ст.",
+      "evidence": "Митральная регургитация 1 ст.",
+      "start": 1483,
+      "end": 1512,
+      "source": "rule"
+    },
+    "echo_zone": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "rg_date": {
+      "value": "25.07.2021",
+      "evidence": "Рентгенограмма ОГК от 25.07.2021",
+      "start": 2229,
+      "end": 2261,
+      "source": "rule"
+    },
+    "rg_pc": {
+      "value": "не указано",
+      "evidence": "Данных за венозный застой в лёгких не получено",
+      "start": 2351,
+      "end": 2397,
+      "source": "rule"
+    },
+    "ca_date": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ca_fact": {
+      "value": "N",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ca_lad": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "rca": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "card_trop": {
+      "value": "отрицательный",
+      "evidence": "тропониновый тест — отрицательный",
+      "start": 1802,
+      "end": 1835,
+      "source": "rule"
+    },
+    "crea": {
+      "value": "92",
+      "evidence": "креатинин 92",
+      "start": 1772,
+      "end": 1784,
+      "source": "rule"
+    },
+    "glu": {
+      "value": "9.2",
+      "evidence": "глюкоза 9.2",
+      "start": 1721,
+      "end": 1732,
+      "source": "rule"
+    },
+    "hb": {
+      "value": "129",
+      "evidence": "гемоглобин 129",
+      "start": 1701,
+      "end": 1715,
+      "source": "rule"
+    },
+    "ldl": {
+      "value": "2.3",
+      "evidence": "ХС-ЛПНП 2.3",
+      "start": 1658,
+      "end": 1669,
+      "source": "rule"
+    },
+    "leucocytes": {
+      "value": "8.6",
+      "evidence": "лейкоциты 8,6",
+      "start": 1679,
+      "end": 1692,
+      "source": "rule"
+    },
+    "thrombocytes": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "tot_chol": {
+      "value": "6.8",
+      "evidence": "общий холестерин 6.8",
+      "start": 1742,
+      "end": 1762,
+      "source": "rule"
+    },
+    "2_aag": {
+      "value": "Клопидогрел 75 мг 1 раз в день",
+      "evidence": "Клопидогрел 75 мг 1 раз в день",
+      "start": 4119,
+      "end": 4149,
+      "source": "rule"
+    },
+    "ace_ing_sartan": {
+      "value": "Рамиприл 5 мг утром",
+      "evidence": "Рамиприл 5 мг утром",
+      "start": 4182,
+      "end": 4201,
+      "source": "rule"
+    },
+    "anticoagulant": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "aspirin": {
+      "value": "Ацетилсалициловая кислота 100 мг утром",
+      "evidence": "Ацетилсалициловая кислота 100 мг утром",
+      "start": 4075,
+      "end": 4113,
+      "source": "rule"
+    },
+    "bb": {
+      "value": "Бисопролол 5 мг утром",
+      "evidence": "Бисопролол 5 мг утром",
+      "start": 4155,
+      "end": 4176,
+      "source": "rule"
+    },
+    "statin": {
+      "value": "Аторвастатин 80 мг вечером",
+      "evidence": "Аторвастатин 80 мг вечером",
+      "start": 4207,
+      "end": 4233,
+      "source": "rule"
+    }
+  },
+  "warnings": []
+}

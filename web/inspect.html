@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Эпикриз → JSON</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --text: #1d232b; --muted: #5f6b7a; --line: #dfe3e8;
+    --accent: #2f6fde; --accent-soft: #e5eefc; --mark: #ffe58a; --mark-active: #ffc94d;
+    --rule: #1f8a4c; --llm: #8a4fd6; --default: #8a94a3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171c; --panel: #1c2027; --text: #e4e8ee; --muted: #98a2b0; --line: #2d333d;
+      --accent: #6a9cf2; --accent-soft: #23314a; --mark: #5c4a12; --mark-active: #8a6a10;
+      --rule: #4cc489; --llm: #b48cf2; --default: #6f7887;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  main { max-width: 1400px; margin: 0 auto; padding: 16px; }
+  .drop { border: 2px dashed var(--line); border-radius: 10px; background: var(--panel); padding: 28px 16px; text-align: center; cursor: pointer; }
+  .drop.over { border-color: var(--accent); background: var(--accent-soft); }
+  .drop strong { display: block; font-size: 16px; margin-bottom: 4px; }
+  .drop span { color: var(--muted); font-size: 13px; }
+  .error { color: #d23b3b; margin-top: 8px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 16px 0 8px; }
+  .bar h2 { margin: 0; font-size: 18px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  button { font: inherit; border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); }
+  .grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 14px; }
+  tr.group th { background: var(--accent-soft); font-size: 13px; text-transform: uppercase; letter-spacing: .02em; }
+  tr.field { cursor: pointer; }
+  tr.field:hover, tr.field.active { background: var(--accent-soft); }
+  td.key { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--muted); white-space: nowrap; }
+  td.desc { color: var(--muted); font-size: 12px; }
+  td.value { font-weight: 600; overflow-wrap: anywhere; }
+  .src { font-size: 11px; padding: 1px 6px; border-radius: 10px; border: 1px solid currentColor; white-space: nowrap; }
+  .src.rule { color: var(--rule); } .src.llm { color: var(--llm); } .src.default { color: var(--default); }
+  .text { position: sticky; top: 8px; max-height: calc(100vh - 16px); overflow: auto; padding: 12px 14px; white-space: pre-wrap; font: 13px/1.5 ui-monospace, Menlo, monospace; }
+  mark { background: var(--mark); color: inherit; border-radius: 2px; }
+  mark.active { background: var(--mark-active); outline: 2px solid var(--mark-active); }
+  .history { margin-top: 24px; }
+  .history a { color: var(--accent); cursor: pointer; }
+  .hidden { display: none; }
+  footer { color: var(--muted); font-size: 12px; padding: 16px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Эпикриз → JSON</h1>
+  <p>Извлечение 50 признаков из выписного эпикриза (ОКС) с подтверждающими фрагментами. <span id="mode"></span></p>
+</header>
+<main>
+  <label class="drop" id="drop">
+    <strong>Перетащите .md или .txt сюда или нажмите, чтобы выбрать</strong>
+    <span>Только синтетические документы. Текст обезличивается до извлечения; в базе хранится обезличенная версия.</span>
+    <input type="file" id="file" accept=".md,.txt" hidden>
+  </label>
+  <div class="error" id="error"></div>
+
+  <section id="result" class="hidden">
+    <div class="bar">
+      <h2 id="title"></h2>
+      <span class="meta" id="stats"></span>
+      <button id="download">Скачать JSON</button>
+      <button class="ghost" id="copy">Копировать JSON</button>
+    </div>
+    <div class="grid">
+      <div class="panel"><table id="table"></table></div>
+      <div class="panel text" id="text"></div>
+    </div>
+  </section>
+
+  <section class="history">
+    <h2 style="font-size:16px">Обработанные документы</h2>
+    <div id="history" class="meta">—</div>
+  </section>
+</main>
+<footer>Исследовательский прототип на синтетических данных. Не предназначен для постановки диагноза и принятия клинических решений.</footer>
+<script>
+const $ = (id) => document.getElementById(id);
+let schema = null, current = null;
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+async function api(path, options) {
+  const response = await fetch(path, options);
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.detail || response.statusText);
+  return body;
+}
+
+async function upload(file) {
+  $("error").textContent = "";
+  const form = new FormData();
+  form.append("file", file);
+  try {
+    show(await api("/api/extract", {method: "POST", body: form}));
+    loadHistory();
+  } catch (e) {
+    $("error").textContent = "Не удалось обработать файл: " + e.message;
+  }
+}
+
+function renderText(doc, activeKey) {
+  // Подсветка всех цитат; активная цитата вытесняет перекрывающиеся с ней.
+  let spans = Object.entries(doc.fields)
+    .filter(([, f]) => f.source !== "default" && f.start >= 0)
+    .map(([key, f]) => ({key, start: f.start, end: f.end}));
+  const active = spans.find((s) => s.key === activeKey);
+  if (active) spans = [active, ...spans.filter((s) => s.end <= active.start || s.start >= active.end)];
+  spans.sort((a, b) => a.start - b.start || b.end - a.end);
+  let html = "", pos = 0;
+  for (const s of spans) {
+    if (s.start < pos) continue;
+    html += esc(doc.anon_text.slice(pos, s.start));
+    html += `<mark data-key="${s.key}" class="${s === active ? "active" : ""}" title="${s.key}">` +
+            esc(doc.anon_text.slice(s.start, s.end)) + "</mark>";
+    pos = s.end;
+  }
+  $("text").innerHTML = html + esc(doc.anon_text.slice(pos));
+  const target = $("text").querySelector("mark.active");
+  if (target) target.scrollIntoView({block: "center", behavior: "smooth"});
+}
+
+function activate(key) {
+  document.querySelectorAll("tr.field").forEach((tr) => tr.classList.toggle("active", tr.dataset.key === key));
+  renderText(current, key);
+}
+
+function show(doc) {
+  current = doc;
+  $("result").classList.remove("hidden");
+  $("title").textContent = doc.filename;
+  const filled = Object.values(doc.fields).filter((f) => f.source !== "default").length;
+  $("stats").textContent = `подтверждено цитатой: ${filled} из 50 · версия ${doc.pipeline_version}` +
+    (doc.warnings.length ? ` · предупреждения: ${doc.warnings.join(", ")}` : "");
+  let rows = "";
+  for (const [group, keys] of Object.entries(schema.groups)) {
+    rows += `<tr class="group"><th colspan="4">${esc(group)}</th></tr>`;
+    for (const key of keys) {
+      const f = doc.fields[key];
+      rows += `<tr class="field" data-key="${key}"><td class="key">${key}</td>` +
+              `<td class="value">${esc(f.value)}</td><td><span class="src ${f.source}">${f.source}</span></td>` +
+              `<td class="desc">${esc(schema.descriptions[key] || "")}</td></tr>`;
+    }
+  }
+  $("table").innerHTML = rows;
+  document.querySelectorAll("tr.field").forEach((tr) => tr.addEventListener("click", () => activate(tr.dataset.key)));
+  renderText(doc, null);
+  history.replaceState(null, "", "#" + doc.id);
+}
+
+async function loadHistory() {
+  const docs = await api("/api/documents?limit=20");
+  $("history").innerHTML = docs.length ? docs.map((d) =>
+    `<div><a data-id="${d.id}">${esc(d.filename)}</a> · ${esc(d.created_at)}</div>`).join("") : "—";
+  $("history").querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", async () => show(await api("/api/results/" + a.dataset.id))));
+}
+
+$("download").addEventListener("click", () => { location.href = `/api/results/${current.id}/download`; });
+$("copy").addEventListener("click", () => navigator.clipboard.writeText(JSON.stringify(current.json, null, 2)));
+$("file").addEventListener("change", (e) => e.target.files[0] && upload(e.target.files[0]));
+const drop = $("drop");
+["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach((t) => drop.addEventListener(t, () => drop.classList.remove("over")));
+drop.addEventListener("drop", (e) => { e.preventDefault(); e.dataTransfer.files[0] && upload(e.dataTransfer.files[0]); });
+
+(async () => {
+  schema = await api("/api/schema");
+  $("mode").textContent = `Режим: ${schema.mode}.`;
+  loadHistory();
+  if (location.hash.length > 1) {
+    const doc = await api("/api/results/" + location.hash.slice(1)).catch(() => null);
+    if (doc) show(doc);
+  }
+})();
+</script>
+</body>
+</html>

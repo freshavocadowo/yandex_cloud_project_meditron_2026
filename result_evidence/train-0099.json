@@ -1,0 +1,358 @@
+{
+  "doc_id": "train-0099",
+  "sha256": "cbddac5c4d6a898a105dda80e6893958d82a7d47174d456f5ef388949230a4f2",
+  "pipeline_version": "0.2.0",
+  "fields": {
+    "admission_date": {
+      "value": "13.03.2023",
+      "evidence": "Период лечения: с 13.03.2023 по 17.03.2023",
+      "start": 138,
+      "end": 180,
+      "source": "rule"
+    },
+    "discharge_date": {
+      "value": "17.03.2023",
+      "evidence": "Период лечения: с 13.03.2023 по 17.03.2023",
+      "start": 138,
+      "end": 180,
+      "source": "rule"
+    },
+    "art_hyper": {
+      "value": "1",
+      "evidence": "Гипертоническая болезнь",
+      "start": 333,
+      "end": 356,
+      "source": "rule"
+    },
+    "atr_fibril": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ckd": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "copd": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "diagnosis_icd": {
+      "value": "I20.0",
+      "evidence": "I20.0",
+      "start": 289,
+      "end": 294,
+      "source": "rule"
+    },
+    "dm": {
+      "value": "1",
+      "evidence": "Сахарный диабет",
+      "start": 368,
+      "end": 383,
+      "source": "rule"
+    },
+    "hf": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "killip": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "mi_localisation": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "tlt": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "type_acs": {
+      "value": "NA",
+      "evidence": "прогрессирующая стенокардия",
+      "start": 227,
+      "end": 254,
+      "source": "rule"
+    },
+    "bmi": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "bp": {
+      "value": "158/104",
+      "evidence": "АД 158/104",
+      "start": 641,
+      "end": 651,
+      "source": "rule"
+    },
+    "bpm": {
+      "value": "95",
+      "evidence": "пульс 95",
+      "start": 622,
+      "end": 630,
+      "source": "rule"
+    },
+    "height": {
+      "value": "154",
+      "evidence": "Рост 154 см",
+      "start": 466,
+      "end": 477,
+      "source": "rule"
+    },
+    "rr": {
+      "value": "20",
+      "evidence": "ЧДД 20",
+      "start": 572,
+      "end": 578,
+      "source": "rule"
+    },
+    "smoking": {
+      "value": "Бросил курить",
+      "evidence": "Бросил курить",
+      "start": 1382,
+      "end": 1395,
+      "source": "rule"
+    },
+    "spo2": {
+      "value": "99",
+      "evidence": "SpO2 99%",
+      "start": 589,
+      "end": 597,
+      "source": "rule"
+    },
+    "weight": {
+      "value": "79",
+      "evidence": "масса тела 79 кг",
+      "start": 479,
+      "end": 495,
+      "source": "rule"
+    },
+    "ecg_avb": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ecg_bpm": {
+      "value": "109",
+      "evidence": "ЧСС 109",
+      "start": 2332,
+      "end": 2339,
+      "source": "rule"
+    },
+    "ecg_elevation": {
+      "value": "0",
+      "evidence": "Элевации ST нет",
+      "start": 2348,
+      "end": 2363,
+      "source": "rule"
+    },
+    "ecg_rythm": {
+      "value": "синусовый",
+      "evidence": "синусовый",
+      "start": 2316,
+      "end": 2325,
+      "source": "rule"
+    },
+    "echo_ef": {
+      "value": "54",
+      "evidence": "ФВ ЛЖ 54%",
+      "start": 2480,
+      "end": 2489,
+      "source": "rule"
+    },
+    "echo_lvd": {
+      "value": "58",
+      "evidence": "КДР ЛЖ 58",
+      "start": 2466,
+      "end": 2475,
+      "source": "rule"
+    },
+    "echo_lvd_2": {
+      "value": "40",
+      "evidence": "ЛП 40",
+      "start": 2456,
+      "end": 2461,
+      "source": "rule"
+    },
+    "echo_mr": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "echo_zone": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "rg_date": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "rg_pc": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ca_date": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ca_fact": {
+      "value": "N",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ca_lad": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "rca": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "card_trop": {
+      "value": "отрицательный",
+      "evidence": "тропониновый тест — отрицательный",
+      "start": 1845,
+      "end": 1878,
+      "source": "rule"
+    },
+    "crea": {
+      "value": "76",
+      "evidence": "креатинин 76",
+      "start": 1729,
+      "end": 1741,
+      "source": "rule"
+    },
+    "glu": {
+      "value": "8.3",
+      "evidence": "глюкоза 8.3",
+      "start": 1752,
+      "end": 1763,
+      "source": "rule"
+    },
+    "hb": {
+      "value": "135",
+      "evidence": "гемоглобин 135",
+      "start": 1818,
+      "end": 1832,
+      "source": "rule"
+    },
+    "ldl": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "leucocytes": {
+      "value": "8.6",
+      "evidence": "лейкоциты 8.6",
+      "start": 1796,
+      "end": 1809,
+      "source": "rule"
+    },
+    "thrombocytes": {
+      "value": "210",
+      "evidence": "тромбоциты 210",
+      "start": 1773,
+      "end": 1787,
+      "source": "rule"
+    },
+    "tot_chol": {
+      "value": "4.1",
+      "evidence": "общий холестерин 4,1",
+      "start": 1699,
+      "end": 1719,
+      "source": "rule"
+    },
+    "2_aag": {
+      "value": "Тикагрелор 90 мг 2 раза в день",
+      "evidence": "Тикагрелор 90 мг 2 раза в день",
+      "start": 3959,
+      "end": 3989,
+      "source": "rule"
+    },
+    "ace_ing_sartan": {
+      "value": "Лозартан 50 мг утром",
+      "evidence": "Лозартан 50 мг утром",
+      "start": 4031,
+      "end": 4051,
+      "source": "rule"
+    },
+    "anticoagulant": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "aspirin": {
+      "value": "Ацетилсалициловая кислота 100 мг утром",
+      "evidence": "Ацетилсалициловая кислота 100 мг утром",
+      "start": 3915,
+      "end": 3953,
+      "source": "rule"
+    },
+    "bb": {
+      "value": "Метопролол 50 мг 2 раза в день",
+      "evidence": "Метопролол 50 мг 2 раза в день",
+      "start": 3995,
+      "end": 4025,
+      "source": "rule"
+    },
+    "statin": {
+      "value": "Розувастатин 20 мг вечером",
+      "evidence": "Розувастатин 20 мг вечером",
+      "start": 4057,
+      "end": 4083,
+      "source": "rule"
+    }
+  },
+  "warnings": []
+}

@@ -1,0 +1,44 @@
+# docker compose up --build          — веб + API на http://localhost:8000, БД PostgreSQL
+# docker compose run --rm batch      — пакетная обработка data/documents -> result/
+# LLM (необязательно): задайте LLM_BASE_URL / LLM_MODEL / LLM_API_KEY в .env
+#   vLLM на GPU-ВМ: LLM_BASE_URL=http://<vm>:8000/v1  LLM_MODEL=Qwen/Qwen2.5-14B-Instruct
+#   YandexGPT:      LLM_BASE_URL=https://llm.api.cloud.yandex.net/v1  LLM_MODEL=gpt://<folder>/yandexgpt/latest
+x-app: &app
+  build: .
+  environment:
+    DATABASE_URL: postgresql://meditron:meditron@db:5432/meditron
+    LLM_BASE_URL: ${LLM_BASE_URL:-}
+    LLM_MODEL: ${LLM_MODEL:-}
+    LLM_API_KEY: ${LLM_API_KEY:-}
+  depends_on:
+    db:
+      condition: service_healthy
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: meditron
+      POSTGRES_PASSWORD: meditron
+      POSTGRES_DB: meditron
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meditron"]
+      interval: 2s
+      retries: 30
+
+  web:
+    <<: *app
+    ports: ["8000:8000"]
+
+  batch:
+    <<: *app
+    profiles: [batch]
+    command: ["python", "-m", "app.batch", "--input", "/data/documents", "--output", "/out/result",
+              "--evidence", "/out/result_evidence", "--workers", "16", "--db"]
+    volumes:
+      - ./data:/data:ro
+      - ./:/out
+
+volumes:
+  pgdata:

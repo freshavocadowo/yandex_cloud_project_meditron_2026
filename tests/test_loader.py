@@ -1,4 +1,6 @@
 import codecs
+import io
+import zipfile
 
 import pytest
 
@@ -26,13 +28,33 @@ def test_newlines_bom_and_unicode_normalized():
 @pytest.mark.parametrize("data,name,code", [
     (b"", "a.md", "empty_document"),
     (b" \r\n\t", "a.md", "empty_document"),
-    (b"text", "a.docx", "unsupported_extension"),
+    (b"text", "a.pdf", "unsupported_extension"),
+    (b"text", "a.docx", "bad_docx"),
     (b"a\x00b", "a.md", "binary_content"),
     (b"x" * 2_000_001, "a.md", "document_too_large"),
 ])
 def test_rejected_inputs(data, name, code):
     with pytest.raises(LoadError, match=code):
         load_bytes(data, name)
+
+
+def docx(body: str) -> bytes:
+    xml = ('<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+           f"<w:body>{body}</w:body></w:document>")
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w") as z:
+        z.writestr("word/document.xml", xml)
+    return buf.getvalue()
+
+
+def test_docx_paragraphs_and_tables():
+    body = ("<w:p><w:r><w:t>Выписной </w:t></w:r><w:r><w:t>эпикриз</w:t></w:r></w:p>"
+            "<w:p><w:r><w:t>Креатинин</w:t><w:tab/><w:t>110</w:t><w:br/><w:t>мкмоль/л</w:t></w:r></w:p>"
+            "<w:tbl><w:tr><w:tc><w:p><w:r><w:t>ЧСС</w:t></w:r></w:p></w:tc>"
+            "<w:tc><w:p><w:r><w:t>72</w:t></w:r></w:p></w:tc></w:tr></w:tbl>")
+    source = load_bytes(docx(body), "train-0001.docx")
+    assert source.text == "Выписной эпикриз\nКреатинин\t110\nмкмоль/л\nЧСС | 72"
+    assert (source.doc_id, source.encoding) == ("train-0001", "docx")
 
 
 def test_discover_filters_and_sorts(tmp_path):

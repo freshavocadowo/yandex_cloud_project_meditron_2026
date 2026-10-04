@@ -1,0 +1,358 @@
+{
+  "doc_id": "train-0020",
+  "sha256": "182b56d7c42371e7e28e0886d3364d6f036d9f6442d64b1a41590bca14948767",
+  "pipeline_version": "0.2.0",
+  "fields": {
+    "admission_date": {
+      "value": "02.02.2024",
+      "evidence": "Поступил: 02.02.2024",
+      "start": 103,
+      "end": 123,
+      "source": "rule"
+    },
+    "discharge_date": {
+      "value": "08.02.2024",
+      "evidence": "выписан: 08.02.2024",
+      "start": 125,
+      "end": 144,
+      "source": "rule"
+    },
+    "art_hyper": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "atr_fibril": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ckd": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "copd": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "diagnosis_icd": {
+      "value": "I21.0",
+      "evidence": "I21.0",
+      "start": 253,
+      "end": 258,
+      "source": "rule"
+    },
+    "dm": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "hf": {
+      "value": "ХСН 2А, ФК 3",
+      "evidence": "ХСН 2А, ФК 3",
+      "start": 284,
+      "end": 296,
+      "source": "rule"
+    },
+    "killip": {
+      "value": "3",
+      "evidence": "Killip III",
+      "start": 320,
+      "end": 330,
+      "source": "rule"
+    },
+    "mi_localisation": {
+      "value": "A",
+      "evidence": "инфаркт миокарда передней",
+      "start": 192,
+      "end": 217,
+      "source": "rule"
+    },
+    "tlt": {
+      "value": "1",
+      "evidence": "На догоспитальном этапе проведён системный тромболизис",
+      "start": 4034,
+      "end": 4088,
+      "source": "rule"
+    },
+    "type_acs": {
+      "value": "STEMI",
+      "evidence": "с элевацией ST",
+      "start": 226,
+      "end": 240,
+      "source": "rule"
+    },
+    "bmi": {
+      "value": "26.4",
+      "evidence": "ИМТ 26,4",
+      "start": 1024,
+      "end": 1032,
+      "source": "rule"
+    },
+    "bp": {
+      "value": "159/90",
+      "evidence": "АД 159/90",
+      "start": 1245,
+      "end": 1254,
+      "source": "rule"
+    },
+    "bpm": {
+      "value": "89",
+      "evidence": "пульс 89",
+      "start": 1226,
+      "end": 1234,
+      "source": "rule"
+    },
+    "height": {
+      "value": "158",
+      "evidence": "Рост 158 см",
+      "start": 993,
+      "end": 1004,
+      "source": "rule"
+    },
+    "rr": {
+      "value": "21",
+      "evidence": "ЧДД 21",
+      "start": 1176,
+      "end": 1182,
+      "source": "rule"
+    },
+    "smoking": {
+      "value": "Курит",
+      "evidence": "Курит",
+      "start": 780,
+      "end": 785,
+      "source": "rule"
+    },
+    "spo2": {
+      "value": "90",
+      "evidence": "SpO2 90%",
+      "start": 1193,
+      "end": 1201,
+      "source": "rule"
+    },
+    "weight": {
+      "value": "66",
+      "evidence": "масса тела 66 кг",
+      "start": 1006,
+      "end": 1022,
+      "source": "rule"
+    },
+    "ecg_avb": {
+      "value": "0",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ecg_bpm": {
+      "value": "101",
+      "evidence": "ЧСС 101",
+      "start": 1450,
+      "end": 1457,
+      "source": "rule"
+    },
+    "ecg_elevation": {
+      "value": "1",
+      "evidence": "Элевация ST",
+      "start": 1466,
+      "end": 1477,
+      "source": "rule"
+    },
+    "ecg_rythm": {
+      "value": "синусовый",
+      "evidence": "синусовый",
+      "start": 1434,
+      "end": 1443,
+      "source": "rule"
+    },
+    "echo_ef": {
+      "value": "43",
+      "evidence": "ФВ ЛЖ 43%",
+      "start": 1635,
+      "end": 1644,
+      "source": "rule"
+    },
+    "echo_lvd": {
+      "value": "53",
+      "evidence": "КДР ЛЖ 53",
+      "start": 1621,
+      "end": 1630,
+      "source": "rule"
+    },
+    "echo_lvd_2": {
+      "value": "35",
+      "evidence": "ЛП 35",
+      "start": 1611,
+      "end": 1616,
+      "source": "rule"
+    },
+    "echo_mr": {
+      "value": "Митральная регургитация 2 ст.",
+      "evidence": "Митральная регургитация 2 ст.",
+      "start": 1676,
+      "end": 1705,
+      "source": "rule"
+    },
+    "echo_zone": {
+      "value": "Гипокинез передней стенки",
+      "evidence": "Гипокинез передней стенки ЛЖ",
+      "start": 1646,
+      "end": 1674,
+      "source": "rule"
+    },
+    "rg_date": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "rg_pc": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "ca_date": {
+      "value": "02.02.2024",
+      "evidence": "02.02.2024",
+      "start": 1867,
+      "end": 1877,
+      "source": "rule"
+    },
+    "ca_fact": {
+      "value": "Y",
+      "evidence": "02.02.2024 выполнена селективная КАГ",
+      "start": 1867,
+      "end": 1903,
+      "source": "rule"
+    },
+    "ca_lad": {
+      "value": "2",
+      "evidence": "ПМЖВ: окклюзия",
+      "start": 1943,
+      "end": 1957,
+      "source": "rule"
+    },
+    "rca": {
+      "value": "1",
+      "evidence": "ПКА: стеноз 69%",
+      "start": 1997,
+      "end": 2012,
+      "source": "rule"
+    },
+    "card_trop": {
+      "value": "положительный",
+      "evidence": "тропониновый тест — положительный",
+      "start": 2340,
+      "end": 2373,
+      "source": "rule"
+    },
+    "crea": {
+      "value": "77",
+      "evidence": "креатинин 77",
+      "start": 2203,
+      "end": 2215,
+      "source": "rule"
+    },
+    "glu": {
+      "value": "6.2",
+      "evidence": "глюкоза 6,2",
+      "start": 2226,
+      "end": 2237,
+      "source": "rule"
+    },
+    "hb": {
+      "value": "115",
+      "evidence": "гемоглобин 115",
+      "start": 2313,
+      "end": 2327,
+      "source": "rule"
+    },
+    "ldl": {
+      "value": "3.7",
+      "evidence": "ХС-ЛПНП 3.7",
+      "start": 2292,
+      "end": 2303,
+      "source": "rule"
+    },
+    "leucocytes": {
+      "value": "6.9",
+      "evidence": "лейкоциты 6,9",
+      "start": 2247,
+      "end": 2260,
+      "source": "rule"
+    },
+    "thrombocytes": {
+      "value": "322",
+      "evidence": "тромбоциты 322",
+      "start": 2269,
+      "end": 2283,
+      "source": "rule"
+    },
+    "tot_chol": {
+      "value": "6.6",
+      "evidence": "общий холестерин 6.6",
+      "start": 2173,
+      "end": 2193,
+      "source": "rule"
+    },
+    "2_aag": {
+      "value": "Тикагрелор 90 мг 2 раза в день",
+      "evidence": "Тикагрелор 90 мг 2 раза в день",
+      "start": 4542,
+      "end": 4572,
+      "source": "rule"
+    },
+    "ace_ing_sartan": {
+      "value": "Лозартан 50 мг утром",
+      "evidence": "Лозартан 50 мг утром",
+      "start": 4605,
+      "end": 4625,
+      "source": "rule"
+    },
+    "anticoagulant": {
+      "value": "не указано",
+      "evidence": "",
+      "start": -1,
+      "end": -1,
+      "source": "default"
+    },
+    "aspirin": {
+      "value": "Ацетилсалициловая кислота 100 мг утром",
+      "evidence": "Ацетилсалициловая кислота 100 мг утром",
+      "start": 4498,
+      "end": 4536,
+      "source": "rule"
+    },
+    "bb": {
+      "value": "Бисопролол 5 мг утром",
+      "evidence": "Бисопролол 5 мг утром",
+      "start": 4578,
+      "end": 4599,
+      "source": "rule"
+    },
+    "statin": {
+      "value": "Розувастатин 20 мг вечером",
+      "evidence": "Розувастатин 20 мг вечером",
+      "start": 4631,
+      "end": 4657,
+      "source": "rule"
+    }
+  },
+  "warnings": []
+}
