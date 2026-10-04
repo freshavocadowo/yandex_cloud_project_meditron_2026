@@ -28,7 +28,6 @@ def test_upload_result_download_list():
     assert "filename*=UTF-8''%D0%BF" in download.headers["content-disposition"]
     assert [d["id"] for d in c.get("/api/documents").json()] == [body["id"]]
     assert c.get("/").status_code == 200
-    assert c.get("/inspect").status_code == 200
     assert c.get("/img/open2.webp").headers["content-type"] == "image/webp"
 
 

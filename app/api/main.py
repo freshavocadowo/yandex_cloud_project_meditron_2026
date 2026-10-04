@@ -34,11 +34,6 @@ def index() -> FileResponse:
     return FileResponse(WEB / "index.html")
 
 
-@app.get("/inspect", include_in_schema=False)
-def inspect() -> FileResponse:
-    return FileResponse(WEB / "inspect.html")
-
-
 @app.get("/api/schema")
 def schema() -> dict:
     return {"groups": GROUPS, "descriptions": DESCRIPTIONS, "pipeline_version": PIPELINE_VERSION,
@@ -77,5 +72,5 @@ def documents(limit: int = 100) -> list[dict]:
     return store().list(limit)
 
 
-# web/ целиком (img/, api.js, inspect.html): монтируется последним, чтобы не перекрывать маршруты выше
+# web/ целиком (img/, api.js): монтируется последним, чтобы не перекрывать маршруты выше
 app.mount("/", StaticFiles(directory=WEB), name="web")
